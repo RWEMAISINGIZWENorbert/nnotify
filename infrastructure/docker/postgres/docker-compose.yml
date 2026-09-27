@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: nnotify-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_USER: nnotify
+      POSTGRES_PASSWORD: nnotify_password
+      POSTGRES_DB: nnotify
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - nnotify_postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nnotify -d nnotify"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  nnotify_postgres_data:
