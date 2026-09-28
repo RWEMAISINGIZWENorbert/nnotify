@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 
+import apiRoutes from "./routes/index.js";
+
 const app = express();
 
 app.use(helmet());
@@ -14,5 +16,7 @@ app.get("/health", (_req, res) => {
     service: "nnotify-api",
   });
 });
+
+app.use('/api/v1', apiRoutes);
 
 export default app;
